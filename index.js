@@ -9,9 +9,14 @@ const downm3u8Button = document.getElementById('downm3u8-button');
 const nameInput = document.getElementById('name');
 
 async function getLink() {
-    const content = linkInput.value;
+    let content = linkInput.value;
     if (!content || !nameInput.value) {
         return;
+    }
+
+    if (content.includes(');}catch(e){};')) {
+        content = content.replace(');}catch(e){};', '');
+        content = content.replace(content.substring(0,38), '');
     }
     
     const json = JSON.parse(content);
