@@ -22,11 +22,12 @@ async function getLink() {
     const json = JSON.parse(content);
     const m3u8Object = json.data.program.video.find(item => item._selected);
     const m3u8 = m3u8Object.m3u8;
-    const sub = json.data.program.stl.find(item => item._selected);
-    const subLink = subBaseLink + sub.srt;
-    downsub.href = subLink;
+    const sub = json.data.program?.stl?.find(item => item._selected);
+    if (sub) {
+        downsub.href = subBaseLink + sub.srt;
+        downsubButton.disabled = false;
+    }
     downsub.download = nameInput.value;
-    downsubButton.disabled = false;
     downm3u8Button.disabled = false;
     createLink(m3u8);
 }
